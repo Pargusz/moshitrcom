@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yakında Geliyor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        font-size: 12px;
+      }
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: 'Cinzel', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+      padding: 1rem;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1608452954474-3bb5d68e5545?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      opacity: 0.2;
+      z-index: -1;
+      animation: fadeIn 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0.2;
+      }
+      100% {
+        opacity: 0.4;
+      }
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-style: italic;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 2rem;
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      z-index: 1;
+    }
+
+    .countdown div {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      min-width: 90px;
+    }
+
+    .locked-button {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      padding: 0.75rem 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 1rem;
+      cursor: not-allowed;
+      opacity: 0.5;
+      white-space: nowrap;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <h1>MOSHİ</h1>
+  <h2>'rebirth'</h2>
+
+  <div class="countdown" id="countdown">
+    <div><span id="days"></span> Gün</div>
+    <div><span id="hours"></span> Saat</div>
+    <div><span id="minutes"></span> Dakika</div>
+    <div><span id="seconds"></span> Saniye</div>
+  </div>
+
+  <button class="locked-button" disabled>İçeri Gir</button>
+
+  <script>
+    const countdown = () => {
+      const launchDate = new Date("May 21, 2025 17:00:00").getTime();
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+
+      if (distance < 0) {
+        document.getElementById("countdown").innerHTML = "ZAMAN GELDİ!";
+      }
+    };
+
+    setInterval(countdown, 1000);
+    countdown();
+  </script>
+</body>
+</html>
